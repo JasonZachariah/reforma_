@@ -1,0 +1,12 @@
+{
+  "name": "Text Highlight Reader",
+  "description": "Read any text that is highlighted by the user",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://docs.google.com/*"],
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "jz_logo.png"
+  }
+}
