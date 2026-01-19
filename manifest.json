@@ -1,6 +1,6 @@
 {
-  "name": "Jason Script Blocker",
-  "description": "Read any text that is highlighted by the user",
+  "name": "Reforma",
+  "description": "A tool to help you with your daily tasks",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": ["activeTab", "scripting"],
