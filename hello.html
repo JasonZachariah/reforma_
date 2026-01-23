@@ -15,11 +15,168 @@
 </head>
 
 <body class="background-color-primary">
-  <h1>Reforma</h1>
+  <h1 id="header">Reforma</h1>
 
-  <input type="text" id="fname" name="firstname" placeholder="Your name..">
-  <button id="clickedButton">Click me</button>
-  <script src="popup.js"></script>
+  <div id="textStylesSection" class="mt-3">
+    <p class="text-sm text-black font-medium">Detected text styles</p>
+    <div id="textStylesContainer" class="mt-2 flex flex-wrap gap-2"></div>
+    <p id="textStylesHint" class="mt-2 text-xs text-black/70">
+      Click a style to apply its font family/weight. Sliders apply automatically.
+    </p>
+  </div>
+  
+  <div class="mt-4">
+    <div class="flex items-center justify-between">
+      <label for="fontSize" class="text-sm font-medium text-black">Font size</label>
+      <span id="fontSizeValue" class="text-sm tabular-nums text-black">16px</span>
+    </div>
+    <input
+      id="fontSize"
+      type="range"
+      min="10"
+      max="32"
+      value="16"
+      class="mt-2 w-full accent-[#D84315]"
+    />
+  </div>
+
+  <div class="mt-4">
+    <div class="flex items-center justify-between">
+      <label for="highlight" class="text-sm font-medium text-black">Highlight</label>
+      <span id="highlightValue" class="text-sm tabular-nums text-black">0%</span>
+    </div>
+    <input
+      id="highlight"
+      type="range"
+      min="0"
+      max="100"
+      value="0"
+      class="mt-2 w-full accent-[#D84315]"
+    />
+  </div>
+
+  <button
+    id="toggleImagesButton"
+    class="mt-4 w-full bg-primary text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    type="button"
+  >
+    Images: ON
+  </button>
+
+  <button
+    id="blurImagesButton"
+    class="mt-3 w-full bg-blue-500 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    type="button"
+  >
+    Blur Images: OFF
+  </button>
+
+  <button
+    id="toggleAnimationsButton"
+    class="mt-3 w-full bg-primary text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    type="button"
+  >
+    Remove Animations: OFF
+  </button>
+
+  <div class="mt-3">
+    <button
+      id="textOnlyButton"
+      class="w-full bg-purple-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+      type="button"
+    >
+      Text Only View: OFF
+    </button>
+    <label class="flex items-center mt-2 text-xs text-black cursor-pointer">
+      <input
+        type="checkbox"
+        id="includeImagesCheckbox"
+        class="mr-2 accent-[#D84315]"
+      />
+      Include images in text view
+    </label>
+  </div>
+
+  <div id="wcagSection" class="mt-4">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm font-medium text-black">WCAG Contrast</p>
+      <button
+        id="checkWcagButton"
+        class="px-3 py-1 text-xs bg-primary text-white rounded hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Check
+      </button>
+    </div>
+    <div id="wcagResults" class="text-xs text-black/70 mb-2"></div>
+    <div class="flex gap-2">
+      <button
+        id="makeAaButton"
+        class="flex-1 bg-primary text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Make AA
+      </button>
+      <button
+        id="makeAaaButton"
+        class="flex-1 bg-primary text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Make AAA
+      </button>
+    </div>
+  </div>
+
+  <div id="colorBlindSection" class="mt-4">
+    <p class="text-sm font-medium text-black mb-2">Color Blind Friendly</p>
+    <div class="grid grid-cols-2 gap-2">
+      <button
+        id="deuteranopiaButton"
+        class="bg-green-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Deuteranopia
+      </button>
+      <button
+        id="tritanopiaButton"
+        class="bg-blue-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Tritanopia
+      </button>
+      <button
+        id="protanopiaButton"
+        class="bg-red-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Protanopia
+      </button>
+      <button
+        id="monochromacyButton"
+        class="bg-gray-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
+        type="button"
+      >
+        Monochromacy
+      </button>
+    </div>
+  </div>
+
+  <button
+    id="syncAllTabsButton"
+    class="mt-3 w-full bg-indigo-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    type="button"
+  >
+    Sync to All Tabs
+  </button>
+
+  <button
+    id="resetButton"
+    class="mt-3 w-full bg-gray-500 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    type="button"
+  >
+    Reset All
+  </button>
+  <script type="module" src="popup.js"></script>
   
 </body>
 

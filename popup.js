@@ -1,25 +1,19 @@
-const clickedButton = document.getElementById('clickedButton');
-const textbox = document.getElementById('textbox_id').value;
+// Main popup initialization
+import { updateUI } from './js/ui.js';
+import { detectAndRenderTextStyles } from './js/textStyles.js';
+import { checkWcag } from './js/wcag.js';
 
-console.log(textbox);
+// Import modules to initialize their event listeners
+import './js/images.js';
+import './js/animations.js';
+import './js/colorBlind.js';
+import './js/wcag.js';
+import './js/reset.js';
+import './js/sliders.js';
+import './js/textOnly.js';
+import './js/syncAllTabs.js';
 
-function injectedFunction() {
-  const divs  = document.querySelectorAll('div');
-
-divs.forEach(div => {
-  div.style.backgroundColor = "orange";
-});
-}
-
-clickedButton.addEventListener('click', async () => {
-
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-    chrome.scripting.executeScript({
-      target : {tabId : tab.id},
-      func : injectedFunction,
-    });
-  
-
-
-});
+// Initialize on load
+updateUI();
+detectAndRenderTextStyles();
+checkWcag(); // Auto-check WCAG on popup open
