@@ -3,9 +3,9 @@ import { clampNumber, setText } from './utils.js';
 import { getSelectedTextStyle } from './state.js';
 
 // DOM elements
-export const fontSizeSlider = document.getElementById('fontSize');
+const fontSizeSlider = document.getElementById('fontSize');
 const fontSizeValue = document.getElementById('fontSizeValue');
-export const highlightSlider = document.getElementById('highlight');
+const highlightSlider = document.getElementById('highlight');
 const highlightValue = document.getElementById('highlightValue');
 
 // Store original styles before first modification
@@ -52,50 +52,16 @@ export function injectedApplyStyles({ fontSizePx = 16, highlightPct = 0, fontFam
   const pct = Math.max(0, Math.min(100, Number(highlightPct) || 0));
   const alpha = pct / 100;
 
-  // Check if element is inside or is an interactive element
-  function isInteractiveElement(el) {
-    if (!el) return false;
-    
-    // Check if element itself is interactive
-    const tagName = el.tagName?.toLowerCase();
-    const interactiveTags = ['button', 'input', 'select', 'textarea', 'label', 'form'];
-    if (interactiveTags.includes(tagName)) return true;
-    
-    // Check if element has interactive role
-    const role = el.getAttribute('role');
-    const interactiveRoles = ['button', 'link', 'menuitem', 'tab', 'option', 'checkbox', 'radio', 'switch'];
-    if (role && interactiveRoles.includes(role)) return true;
-    
-    // Check if element is inside an interactive element
-    const parent = el.closest('button, input, select, textarea, label, form, [role="button"], [role="link"], [role="menuitem"], [role="tab"], [role="option"]');
-    if (parent) return true;
-    
-    // Check if element has onclick handler (likely interactive)
-    if (el.onclick || el.getAttribute('onclick')) return true;
-    
-    return false;
-  }
-
   elements.forEach((el) => {
     el.style.transition = 'font-size 0.3s ease-out';
     el.style.fontSize = `${size}px`;
     if (fontFamily) el.style.fontFamily = String(fontFamily);
     if (fontWeight) el.style.fontWeight = String(fontWeight);
     if (fontStyle) el.style.fontStyle = String(fontStyle);
-    
-    // Only apply highlight to non-interactive text elements
-    if (!isInteractiveElement(el)) {
-      el.style.backgroundColor = alpha > 0 ? `rgba(255, 235, 59, ${alpha})` : '';
-      el.style.boxDecorationBreak = alpha > 0 ? 'clone' : '';
-      el.style.padding = alpha > 0 ? '0.05em 0.2em' : '';
-      el.style.borderRadius = alpha > 0 ? '0.2em' : '';
-    } else {
-      // Clear highlight from interactive elements
-      el.style.backgroundColor = '';
-      el.style.boxDecorationBreak = '';
-      el.style.padding = '';
-      el.style.borderRadius = '';
-    }
+    el.style.backgroundColor = alpha > 0 ? `rgba(255, 235, 59, ${alpha})` : '';
+    el.style.boxDecorationBreak = alpha > 0 ? 'clone' : '';
+    el.style.padding = alpha > 0 ? '0.05em 0.2em' : '';
+    el.style.borderRadius = alpha > 0 ? '0.2em' : '';
   });
 }
 

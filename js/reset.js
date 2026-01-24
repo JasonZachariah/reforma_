@@ -104,13 +104,6 @@ export async function resetAll() {
     resetSliders();
     updateUI();
     
-    // Clear sync state
-    if (window.reformaSyncState) {
-      window.reformaSyncState.colorBlindMode = null;
-      window.reformaSyncState.textOnlyMode = false;
-      window.reformaSyncState.textOnlyIncludeImages = false;
-    }
-    
     setTimeout(() => {
       checkWcag();
       detectAndRenderTextStyles();
