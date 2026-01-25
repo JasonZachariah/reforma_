@@ -71,6 +71,54 @@ export function injectedResetAll() {
     animationStyle.remove();
   }
   
+  // Restore GSAP animations
+  if (window.reformaOriginalScrollIntoView) {
+    Element.prototype.scrollIntoView = window.reformaOriginalScrollIntoView;
+    delete window.reformaOriginalScrollIntoView;
+  }
+  
+  if (window.reformaOriginalScrollTo) {
+    window.scrollTo = window.reformaOriginalScrollTo;
+    delete window.reformaOriginalScrollTo;
+  }
+  
+  if (window.reformaOriginalScroll) {
+    window.scroll = window.reformaOriginalScroll;
+    delete window.reformaOriginalScroll;
+  }
+  
+  // Restore GSAP
+  if (window.gsap && window.reformaOriginalGsap) {
+    window.gsap.to = window.reformaOriginalGsap.to;
+    window.gsap.from = window.reformaOriginalGsap.from;
+    window.gsap.fromTo = window.reformaOriginalGsap.fromTo;
+    window.gsap.timeline = window.reformaOriginalGsap.timeline;
+    window.gsap.set = window.reformaOriginalGsap.set;
+    delete window.reformaOriginalGsap;
+  }
+  
+  // Restore ScrollTrigger
+  if (window.ScrollTrigger && window.reformaOriginalScrollTriggerCreate) {
+    window.ScrollTrigger.create = window.reformaOriginalScrollTriggerCreate;
+    delete window.reformaOriginalScrollTriggerCreate;
+  }
+  
+  // Restore TweenMax
+  if (window.TweenMax && window.reformaOriginalTweenMax) {
+    window.TweenMax.to = window.reformaOriginalTweenMax.to;
+    window.TweenMax.from = window.reformaOriginalTweenMax.from;
+    window.TweenMax.fromTo = window.reformaOriginalTweenMax.fromTo;
+    delete window.reformaOriginalTweenMax;
+  }
+  
+  // Restore TweenLite
+  if (window.TweenLite && window.reformaOriginalTweenLite) {
+    window.TweenLite.to = window.reformaOriginalTweenLite.to;
+    window.TweenLite.from = window.reformaOriginalTweenLite.from;
+    window.TweenLite.fromTo = window.reformaOriginalTweenLite.fromTo;
+    delete window.reformaOriginalTweenLite;
+  }
+  
   // Remove color blind filter
   const colorBlindStyle = document.getElementById('reforma-color-blind');
   if (colorBlindStyle) {

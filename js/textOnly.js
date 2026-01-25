@@ -1328,8 +1328,24 @@ if (includeImagesCheckbox) {
 }
 
 function updateButtonText() {
-  if (textOnlyButton) {
-    textOnlyButton.textContent = `Text Only View: ${textOnlyMode ? 'ON' : 'OFF'}`;
+  if (!textOnlyButton) return;
+  const buttonText = textOnlyButton.querySelector('.text-only-button-text');
+  if (buttonText) {
+    buttonText.textContent = 'Text Only';
+  }
+  // Update button visual state based on mode
+  if (textOnlyMode) {
+    textOnlyButton.style.background = 'var(--color-primary, #D84315)';
+    textOnlyButton.style.borderColor = 'var(--color-primary, #D84315)';
+    if (buttonText) {
+      buttonText.style.color = '#ffffff';
+    }
+  } else {
+    textOnlyButton.style.background = '#F9F6F6';
+    textOnlyButton.style.borderColor = '#E6E3E3';
+    if (buttonText) {
+      buttonText.style.color = 'var(--text-primary, #000000)';
+    }
   }
 }
 

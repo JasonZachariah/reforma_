@@ -3,7 +3,7 @@
   "description": "A tool to help you with your daily tasks",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
   "host_permissions": ["https://docs.google.com/*", "http://*/*", "https://*/*"],
   "action": {
     "default_popup": "hello.html",
@@ -15,15 +15,6 @@
       "js": ["content.js"],
       "run_at": "document_idle",
       "all_frames": false
-    }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": ["jz_logo.png"],
-      "matches": ["http://*/*", "https://*/*"]
     }
   ]
 }

@@ -5,8 +5,6 @@ import { getSelectedTextStyle } from './state.js';
 // DOM elements
 const fontSizeSlider = document.getElementById('fontSize');
 const fontSizeValue = document.getElementById('fontSizeValue');
-const highlightSlider = document.getElementById('highlight');
-const highlightValue = document.getElementById('highlightValue');
 
 // Store original styles before first modification
 export function injectedStoreOriginalStyles() {
@@ -39,7 +37,7 @@ export function injectedStoreOriginalStyles() {
 }
 
 // Injected function to apply styles
-export function injectedApplyStyles({ fontSizePx = 16, highlightPct = 0, fontFamily = null, fontWeight = null, fontStyle = null }) {
+export function injectedApplyStyles({ fontSizePx = 16, fontFamily = null, fontWeight = null, fontStyle = null }) {
   // Store original styles on first call
   if (!window.reformaOriginalStyles) {
     injectedStoreOriginalStyles();
@@ -49,8 +47,6 @@ export function injectedApplyStyles({ fontSizePx = 16, highlightPct = 0, fontFam
   const elements = document.querySelectorAll(selectors);
 
   const size = Number(fontSizePx) || 16;
-  const pct = Math.max(0, Math.min(100, Number(highlightPct) || 0));
-  const alpha = pct / 100;
 
   elements.forEach((el) => {
     el.style.transition = 'font-size 0.3s ease-out';
@@ -58,19 +54,13 @@ export function injectedApplyStyles({ fontSizePx = 16, highlightPct = 0, fontFam
     if (fontFamily) el.style.fontFamily = String(fontFamily);
     if (fontWeight) el.style.fontWeight = String(fontWeight);
     if (fontStyle) el.style.fontStyle = String(fontStyle);
-    el.style.backgroundColor = alpha > 0 ? `rgba(255, 235, 59, ${alpha})` : '';
-    el.style.boxDecorationBreak = alpha > 0 ? 'clone' : '';
-    el.style.padding = alpha > 0 ? '0.05em 0.2em' : '';
-    el.style.borderRadius = alpha > 0 ? '0.2em' : '';
   });
 }
 
 export function updateSliderUI() {
   const fontSize = clampNumber(fontSizeSlider?.value, 10, 32, 16);
-  const highlight = clampNumber(highlightSlider?.value, 0, 100, 0);
 
   setText(fontSizeValue, `${fontSize}px`);
-  setText(highlightValue, `${highlight}%`);
 }
 
 export async function applyStyles() {
@@ -78,7 +68,6 @@ export async function applyStyles() {
   if (!tab?.id) return;
 
   const fontSize = clampNumber(fontSizeSlider?.value, 10, 32, 16);
-  const highlight = clampNumber(highlightSlider?.value, 0, 100, 0);
 
   // Store original styles before first modification
   await chrome.scripting.executeScript({
@@ -91,7 +80,6 @@ export async function applyStyles() {
     func: injectedApplyStyles,
     args: [{
       fontSizePx: fontSize,
-      highlightPct: highlight,
       fontFamily: getSelectedTextStyle()?.fontFamily ?? null,
       fontWeight: getSelectedTextStyle()?.fontWeight ?? null,
       fontStyle: getSelectedTextStyle()?.fontStyle ?? null,
@@ -107,16 +95,8 @@ if (fontSizeSlider) {
   });
 }
 
-if (highlightSlider) {
-  highlightSlider.addEventListener('input', () => {
-    updateSliderUI();
-    applyStyles();
-  });
-}
-
 // Export for reset functionality
 export function resetSliders() {
   if (fontSizeSlider) fontSizeSlider.value = '16';
-  if (highlightSlider) highlightSlider.value = '0';
   updateSliderUI();
 }
