@@ -60,38 +60,3 @@ p {
 #header {
   animation: springHeader 800ms linear(0, 0.1187, 0.3801, 0.6679, 0.9085, 1.069, 1.1478, 1.1617, 1.1346, 1.0894, 1.0435, 1.0072, 0.9844, 0.9745, 0.9743, 0.9797, 0.9873, 0.9945, 0.9999, 1.0031, 1.0043, 1.004, 1.003, 1.0018, 1.0006, 0.9998, 1);
 }
-
-/* Text Only Button - Figma Design Implementation */
-.text-only-button {
-  display: inline-flex;
-  padding: 8px 16px;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid #E6E3E3;
-  background: #F9F6F6;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: var(--primary-font);
-  font-size: 14px;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.text-only-button:hover {
-  background: #F0EDED;
-  border-color: #D9D6D6;
-}
-
-.text-only-button:active {
-  background: #E8E5E5;
-  transform: scale(0.98);
-}
-
-.text-only-button-text {
-  font-family: var(--primary-font);
-  font-size: 14px;
-  color: var(--text-primary);
-  white-space: nowrap;
-}

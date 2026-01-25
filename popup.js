@@ -11,9 +11,6 @@ import './js/wcag.js';
 import './js/reset.js';
 import './js/sliders.js';
 import './js/textOnly.js';
-import './js/comments.js';
-import './js/textCommentMode.js';
-import './js/highlightText.js';
 
 // Initialize on load
 updateUI();

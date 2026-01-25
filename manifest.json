@@ -3,18 +3,10 @@
   "description": "A tool to help you with your daily tasks",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab", "scripting", "storage", "tabs"],
-  "host_permissions": ["https://docs.google.com/*", "http://*/*", "https://*/*"],
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://docs.google.com/*"],
   "action": {
     "default_popup": "hello.html",
     "default_icon": "jz_logo.png"
-  },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content.js"],
-      "run_at": "document_idle",
-      "all_frames": false
-    }
-  ]
+  }
 }
