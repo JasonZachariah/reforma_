@@ -11,6 +11,8 @@ import './js/wcag.js';
 import './js/reset.js';
 import './js/sliders.js';
 import './js/textOnly.js';
+import './js/syncAllTabs.js';
+import './js/floatingButton.js';
 
 // Initialize on load
 updateUI();
