@@ -13,6 +13,7 @@ import './js/sliders.js';
 import './js/textOnly.js';
 import './js/syncAllTabs.js';
 import './js/floatingButton.js';
+import './js/highlightComment.js';
 
 // Initialize on load
 updateUI();
