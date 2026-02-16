@@ -1,5 +1,22 @@
 // Reforma popup: all features in one file
 function setText(el, text) { if (!el) return; el.textContent = String(text); }
+
+(function setupTabs() {
+  const buttons = document.querySelectorAll('.reforma-tab-btn');
+  const panels = document.querySelectorAll('.reforma-tab-panel');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const tab = btn.getAttribute('data-tab');
+      if (!tab) return;
+      buttons.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+      panels.forEach(function (p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById('panel-' + tab);
+      if (panel) panel.classList.add('active');
+    });
+  });
+})();
 function clampNumber(value, min, max, fallback) { const n = Number(value); if (!Number.isFinite(n)) return fallback; return Math.min(max, Math.max(min, n)); }
 async function getActiveTab() { const [tab] = await chrome.tabs.query({ active: true, currentWindow: true }); return tab; }
 function clearEl(el) { if (!el) return; while (el.firstChild) el.removeChild(el.firstChild); }
@@ -320,29 +337,48 @@ if (syncAllTabsButton) syncAllTabsButton.addEventListener('click', syncToAllTabs
 
 const highlightCommentFocusBtn = document.getElementById('highlightCommentFocusBtn');
 if (highlightCommentFocusBtn) highlightCommentFocusBtn.addEventListener('click', async () => { const tab = await getActiveTab(); if (tab?.id) try { await chrome.tabs.sendMessage(tab.id, { action: 'reforma-show-highlight-hint' }); } catch (e) {} });
-const togglePageToolbarButton = document.getElementById('togglePageToolbarButton');
-if (togglePageToolbarButton) togglePageToolbarButton.addEventListener('click', async () => {
-  try {
-    const tab = await getActiveTab();
-    if (!tab?.id) return;
-    const url = tab.url || '';
-    if (url.startsWith('chrome://') || url.startsWith('chrome-extension://') || url.startsWith('edge://')) {
-      return;
-    }
-    try {
-      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-toggle-page-toolbar' });
-    } catch (err) {
-      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['js/content.js'] });
-      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-toggle-page-toolbar' });
-    }
-  } catch (e) {
-    if (typeof console !== 'undefined' && console.warn) {
-      console.warn('Reforma: Reload the page and try again.', e?.message || String(e));
-    }
-  }
-});
 const screenshotAreaButton = document.getElementById('screenshotAreaButton');
 if (screenshotAreaButton) screenshotAreaButton.addEventListener('click', async () => { const tab = await getActiveTab(); if (!tab?.id || tab.url?.startsWith('chrome://') || tab.url?.startsWith('chrome-extension://')) return; try { await chrome.runtime.sendMessage({ action: 'startScreenshotMode', tabId: tab.id }); setTimeout(() => window.close(), 150); } catch (e) { console.error(e); } });
+
+const enablePlaygroundBtn = document.getElementById('enablePlaygroundBtn');
+if (enablePlaygroundBtn) enablePlaygroundBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const tab = await getActiveTab();
+  if (!tab?.id) return;
+  const url = String(tab.url || '');
+  if (url.startsWith('chrome://') || url.startsWith('chrome-extension://') || url.startsWith('edge://')) return;
+  try {
+    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['js/playground.js'] });
+  } catch (injErr) {
+    enablePlaygroundBtn.textContent = 'Reload page & try again';
+    return;
+  }
+  await new Promise(res => setTimeout(res, 250));
+  try {
+    const areaComment = document.getElementById('playgroundAreaCommentCheckbox')?.checked === true;
+    const gapMode = document.getElementById('playgroundGapModeCheckbox')?.checked === true;
+    const r = await chrome.tabs.sendMessage(tab.id, { action: 'reforma-enable-playground', areaComment: areaComment, gapMode: gapMode });
+    if (r && r.enabled) enablePlaygroundBtn.textContent = 'Disable Playground';
+    else enablePlaygroundBtn.textContent = 'Enable Playground on Page';
+  } catch (msgErr) {
+    enablePlaygroundBtn.textContent = 'Reload page & try again';
+  }
+});
+
+const savePdfBtn = document.getElementById('savePdfBtn');
+if (savePdfBtn) savePdfBtn.addEventListener('click', async () => {
+  try {
+    const tab = await getActiveTab();
+    if (!tab?.id || tab.url?.startsWith('chrome://') || tab.url?.startsWith('chrome-extension://')) return;
+    try {
+      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-save-pdf' });
+    } catch (e) {
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['js/playground.js'] });
+      await new Promise(r => setTimeout(r, 80));
+      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-save-pdf' });
+    }
+  } catch (err) {}
+});
 
 const HL_STORAGE = 'reforma_highlights';
 const CODE_PREFIX = 'RF-';
