@@ -1,7 +1,6 @@
 import { setText, clampNumber } from './utils.js';
 import { getImagesEnabled, getImagesBlurred, getAnimationsDisabled } from './state.js';
 
-// DOM elements
 const fontSizeSlider = document.getElementById('fontSize');
 const fontSizeValue = document.getElementById('fontSizeValue');
 const highlightSlider = document.getElementById('highlight');

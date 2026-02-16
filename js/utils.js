@@ -1,4 +1,3 @@
-// Utility functions
 export function setText(el, text) {
   if (!el) return;
   el.textContent = String(text);

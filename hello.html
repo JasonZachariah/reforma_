@@ -7,9 +7,7 @@
   <title>Jason Script Blocker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,14 +15,15 @@
 <body class="background-color-primary">
   <h1 id="header">Reforma</h1>
 
-  <div id="textStylesSection" class="mt-3">
-    <p class="text-sm text-black font-medium">Detected text styles</p>
-    <div id="textStylesContainer" class="mt-2 flex flex-wrap gap-2"></div>
-    <p id="textStylesHint" class="mt-2 text-xs text-black/70">
-      Click a style to apply its font family/weight. Sliders apply automatically.
-    </p>
-  </div>
-  
+  <a
+    href="https://docs.google.com/document/create"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-3 w-full inline-block text-center bg-blue-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity font-medium"
+  >
+    New Google Doc
+  </a>
+
   <div class="mt-4">
     <div class="flex items-center justify-between">
       <label for="fontSize" class="text-sm font-medium text-black">Font size</label>
@@ -36,7 +35,7 @@
       min="10"
       max="32"
       value="16"
-      class="mt-2 w-full accent-[#D84315]"
+      class="mt-2 w-full accent-[#D643E3]"
     />
   </div>
 
@@ -51,7 +50,7 @@
       min="0"
       max="100"
       value="0"
-      class="mt-2 w-full accent-[#D84315]"
+      class="mt-2 w-full accent-[#D643E3]"
     />
   </div>
 
@@ -90,9 +89,78 @@
     Select text on the page, then use the toolbar to highlight yellow and add a comment.
   </p>
 
+  <div class="mt-3 p-3 rounded-lg border border-amber-200 bg-amber-50/80">
+    <p class="text-sm font-medium text-black mb-2">Restore code</p>
+    <p class="text-xs text-black/70 mb-2">
+      Generate a code that saves all highlights and comments on this page. Enter the same code on this page later to restore them.
+    </p>
+    <div class="flex gap-2 mb-2">
+      <button
+        id="highlightGenerateCodeBtn"
+        type="button"
+        class="flex-1 bg-amber-500 text-white py-2 px-3 rounded text-sm hover:opacity-90 transition-opacity"
+      >
+        Generate code
+      </button>
+      <button
+        id="highlightRestoreCodeCopyBtn"
+        type="button"
+        class="px-3 py-2 bg-amber-600 text-white rounded text-sm hover:opacity-90 transition-opacity"
+      >
+        Copy
+      </button>
+    </div>
+    <textarea
+      id="highlightRestoreCodeOutput"
+      readonly
+      rows="2"
+      class="w-full text-xs font-mono p-2 border border-gray-300 rounded bg-white mb-2"
+      placeholder="Click Generate code to create a restore code"
+   ></textarea>
+    <div class="mb-2">
+      <input
+        id="highlightRestoreCodeInput"
+        type="text"
+        class="w-full text-sm p-2 border border-gray-300 rounded"
+        placeholder="Paste code to restore highlights on this page"
+      />
+    </div>
+    <button
+      id="highlightRestoreCodeRestoreBtn"
+      type="button"
+      class="mb-2 w-full bg-amber-600 text-white py-2 px-3 rounded text-sm hover:opacity-90 transition-opacity"
+    >
+      Restore from code
+    </button>
+    <p id="highlightRestoreCodeStatus" class="text-xs text-black/70 min-h-[1.25rem]"></p>
+  </div>
+
+  <button
+    id="screenshotAreaButton"
+    type="button"
+    class="mt-3 w-full bg-teal-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+  >
+    Select area & save screenshot
+  </button>
+  <p class="mt-1 text-xs text-black/70">
+    Draw a box on the page to capture; saved in extension.
+  </p>
+
+  <div id="savedScreenshotsSection" class="mt-3">
+    <p class="text-sm font-medium text-black mb-2">Saved screenshots</p>
+    <div id="savedScreenshotsPreview" class="mb-2 hidden">
+      <p class="text-xs text-black/70 mb-1">Latest capture</p>
+      <a id="savedScreenshotsPreviewLink" href="#" class="block rounded overflow-hidden border border-gray-300 bg-gray-100">
+        <img id="savedScreenshotsPreviewImg" alt="" class="w-full h-auto max-h-40 object-contain" />
+      </a>
+    </div>
+    <div id="savedScreenshotsList" class="space-y-2 max-h-48 overflow-y-auto"></div>
+    <p id="savedScreenshotsEmpty" class="text-xs text-black/70 hidden">None yet. Use the button above to capture an area.</p>
+  </div>
+
   <div class="mt-3">
     <button
-      id="textOnlyButton"
+    id="textOnlyButton"
       class="w-full bg-purple-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
       type="button"
     >
@@ -102,40 +170,10 @@
       <input
         type="checkbox"
         id="includeImagesCheckbox"
-        class="mr-2 accent-[#D84315]"
+        class="mr-2 accent-[#D643E3]"
       />
       Include images in text view
     </label>
-  </div>
-
-  <div id="wcagSection" class="mt-4">
-    <div class="flex items-center justify-between mb-2">
-      <p class="text-sm font-medium text-black">WCAG Contrast</p>
-      <button
-        id="checkWcagButton"
-        class="px-3 py-1 text-xs bg-primary text-white rounded hover:opacity-90 transition-opacity"
-        type="button"
-      >
-        Check
-      </button>
-    </div>
-    <div id="wcagResults" class="text-xs text-black/70 mb-2"></div>
-    <div class="flex gap-2">
-      <button
-        id="makeAaButton"
-        class="flex-1 bg-primary text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
-        type="button"
-      >
-        Make AA
-      </button>
-      <button
-        id="makeAaaButton"
-        class="flex-1 bg-primary text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity"
-        type="button"
-      >
-        Make AAA
-      </button>
-    </div>
   </div>
 
   <div id="colorBlindSection" class="mt-4">
@@ -181,11 +219,11 @@
   </button>
 
   <button
-    id="toggleFloatingButton"
-    class="mt-3 w-full bg-orange-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
+    id="togglePageToolbarButton"
+    class="mt-2 w-full bg-slate-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity"
     type="button"
   >
-    Floating Button: ON
+    Show toolbar on page
   </button>
 
   <button
@@ -195,7 +233,7 @@
   >
     Reset All
   </button>
-  <script type="module" src="popup.js"></script>
+  <script type="module" src="js/popup.js"></script>
   
 </body>
 

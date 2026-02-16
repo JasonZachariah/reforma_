@@ -1,5 +1,5 @@
 html {
-  
+
 
   width: 400px;
   /* max: 800px */
@@ -8,29 +8,48 @@ html {
 }
 
 :root {
-  --color-primary: #D84315;
-  --color-secondary: #FFAB91;
-  --color-tertiary: #FBE9E7;
+  /* Neutrals */
+  --neutral-100: #F9F6F6;
+  --neutral-200: #E6E3E3;
+  --neutral-300: #CDC8C6;
+  --neutral-400: #A09591;
+  --neutral-500: #817671;
+  --neutral-600: #675C58;
+  --neutral-700: #504645;
+  --neutral-800: #372828;
+  --neutral-900: #181211;
+  /* Primary */
+  --primary-100: #FFEBFE;
+  --primary-200: #FFE5F2;
+  --primary-300: #FEDAF5;
+  --primary-400: #FFB7E2;
+  --primary-500: #F977DF;
+  --primary-600: #D643E3;
+  --primary-700: #9E198C;
+  --primary-800: #A911A9;
+  --primary-900: #38052E;
 
-  --text-primary: #000000;
-  --text-secondary: #ffffff;
+  --color-primary: #D643E3;
+  --color-secondary: #FEDAF5;
+  --color-tertiary: #FFEBFE;
 
-  --primary-font: "Inter", sans-serif;
-  --secondary-font: "Platypi", sans-serif;
+  --text-primary: #181211;
+  --text-secondary: #F9F6F6;
 
+  --primary-font: "Urbanist", sans-serif;
+  --secondary-font: "Shantell Sans", serif;
 }
 
 body {
-background: var(--color-tertiary);
-
- 
+  background: var(--color-tertiary);
+  font-family: var(--secondary-font);
 }
 
 h1 {
   font-family: var(--secondary-font);
-  color: var(--text-primary);
+  color: var(--secondary-font);
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 900;
   text-align: center;
   margin: 0 0 15px 0;
   padding: 0;
@@ -40,7 +59,7 @@ p {
   color: var(--text-primary);
   font-family: var(--primary-font);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
 
   margin: 0 0 15px 0;
   padding: 0;
@@ -51,6 +70,7 @@ p {
     transform: scale(0);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -59,4 +79,118 @@ p {
 
 #header {
   animation: springHeader 800ms linear(0, 0.1187, 0.3801, 0.6679, 0.9085, 1.069, 1.1478, 1.1617, 1.1346, 1.0894, 1.0435, 1.0072, 0.9844, 0.9745, 0.9743, 0.9797, 0.9873, 0.9945, 0.9999, 1.0031, 1.0043, 1.004, 1.003, 1.0018, 1.0006, 0.9998, 1);
+}
+
+button {
+  font-family: var(--secondary-font);
+  display: flex;
+  height: 36px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  border-radius: 4px;
+  border: 1px solid var(--neutral-200);
+  background: var(--neutral-100);
+  color: var(--text-primary);
+}
+
+button:hover {
+  background: var(--primary-200);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+button:active {
+  background: var(--color-primary);
+  color: var(--text-secondary);
+  outline: 1px solid var(--color-primary);
+}
+
+/* Optional: use class to show button in active (pressed) state */
+button.button-active,
+.button-active {
+  background: var(--color-primary);
+  color: var(--text-secondary);
+  outline: 1px solid var(--color-primary);
+}
+
+button:disabled {
+  background: var(--neutral-200);
+  color: var(--text-primary);
+  outline: 1px solid var(--neutral-300);
+  cursor: not-allowed;
+}
+
+/* Screenshot viewer page */
+body.screenshot-viewer-page {
+  margin: 0;
+  padding: 16px;
+  background: var(--neutral-800);
+  font-family: var(--primary-font), system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.screenshot-viewer-page .toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 16px;
+  background: var(--neutral-900);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+body.screenshot-viewer-page .toolbar h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--secondary-font), system-ui, sans-serif;
+}
+
+body.screenshot-viewer-page .toolbar button {
+  padding: 8px 14px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--secondary-font), system-ui, sans-serif;
+}
+
+body.screenshot-viewer-page .toolbar button:hover {
+  opacity: 0.9;
+}
+
+body.screenshot-viewer-page .wrap {
+  margin-top: 56px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+body.screenshot-viewer-page .wrap img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.screenshot-viewer-page .error {
+  color: #f87171;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--primary-font), system-ui, sans-serif;
 }

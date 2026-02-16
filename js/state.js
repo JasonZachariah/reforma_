@@ -1,4 +1,3 @@
-// Global state management
 const state = {
   imagesEnabled: true,
   imagesBlurred: false,
