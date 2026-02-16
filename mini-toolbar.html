@@ -1,0 +1,16 @@
+<!-- Editable mini toolbar. Keep #reforma-mini-toolbar as root.
+     Actions: data-reforma-action="openPopup" | "minimize" | "expand".
+     Logo: add data-reforma-logo to <img> (src is set by JS). -->
+<div id="reforma-mini-toolbar" aria-label="Reforma mini toolbar">
+  <div class="reforma-mini-toolbar-buttons flex items-center gap-4 p-8">
+    <img class="reforma-mini-toolbar-logo" alt="" data-reforma-logo />
+    <button type="button" class="reforma-mini-toolbar-btn" data-reforma-action="openPopup">Test</button>
+    <button type="button" class="reforma-mini-toolbar-btn" data-reforma-action="openPopup">Highlight</button>
+    <button type="button" class="reforma-mini-toolbar-btn" data-reforma-action="openPopup">Images</button>
+    <button type="button" class="reforma-mini-toolbar-btn reforma-mini-toolbar-btn-primary" data-reforma-action="openPopup">Settings</button>
+    <button type="button" class="reforma-mini-toolbar-btn reforma-mini-toolbar-btn-minimize" data-reforma-action="minimize" aria-label="Minimize toolbar">−</button>
+  </div>
+  <div class="reforma-mini-toolbar-expand" data-reforma-action="expand" role="button" aria-label="Expand toolbar">
+    <img class="reforma-mini-toolbar-logo" alt="Reforma" data-reforma-logo />
+  </div>
+</div>

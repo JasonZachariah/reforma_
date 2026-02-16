@@ -321,7 +321,26 @@ if (syncAllTabsButton) syncAllTabsButton.addEventListener('click', syncToAllTabs
 const highlightCommentFocusBtn = document.getElementById('highlightCommentFocusBtn');
 if (highlightCommentFocusBtn) highlightCommentFocusBtn.addEventListener('click', async () => { const tab = await getActiveTab(); if (tab?.id) try { await chrome.tabs.sendMessage(tab.id, { action: 'reforma-show-highlight-hint' }); } catch (e) {} });
 const togglePageToolbarButton = document.getElementById('togglePageToolbarButton');
-if (togglePageToolbarButton) togglePageToolbarButton.addEventListener('click', async () => { try { const tab = await getActiveTab(); if (tab?.id) await chrome.tabs.sendMessage(tab.id, { action: 'reforma-toggle-page-toolbar' }); } catch (e) { console.warn('Reload page and try again.'); } });
+if (togglePageToolbarButton) togglePageToolbarButton.addEventListener('click', async () => {
+  try {
+    const tab = await getActiveTab();
+    if (!tab?.id) return;
+    const url = tab.url || '';
+    if (url.startsWith('chrome://') || url.startsWith('chrome-extension://') || url.startsWith('edge://')) {
+      return;
+    }
+    try {
+      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-toggle-page-toolbar' });
+    } catch (err) {
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['js/content.js'] });
+      await chrome.tabs.sendMessage(tab.id, { action: 'reforma-toggle-page-toolbar' });
+    }
+  } catch (e) {
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('Reforma: Reload the page and try again.', e?.message || String(e));
+    }
+  }
+});
 const screenshotAreaButton = document.getElementById('screenshotAreaButton');
 if (screenshotAreaButton) screenshotAreaButton.addEventListener('click', async () => { const tab = await getActiveTab(); if (!tab?.id || tab.url?.startsWith('chrome://') || tab.url?.startsWith('chrome-extension://')) return; try { await chrome.runtime.sendMessage({ action: 'startScreenshotMode', tabId: tab.id }); setTimeout(() => window.close(), 150); } catch (e) { console.error(e); } });
 
