@@ -1,7 +1,40 @@
+/* Local variable fonts with BNCE, INFM, SPAC axes */
+@font-face {
+  font-family: 'Shantell Sans';
+  src: url('fonts/ShantellSans-VariableFont_BNCE%2CINFM%2CSPAC%2Cwght.ttf') format('truetype');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Shantell Sans';
+  src: url('fonts/ShantellSans-Italic-VariableFont_BNCE%2CINFM%2CSPAC%2Cwght.ttf') format('truetype');
+  font-weight: 300 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('fonts/Urbanist-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('fonts/Urbanist-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 html {
 
 
-  width: 400px;
+  width: 200px;
   /* max: 800px */
   max-height: 500px;
   /* max: 600px */
@@ -50,6 +83,10 @@ h1 {
   color: var(--secondary-font);
   font-size: 18px;
   font-weight: 900;
+  font-variation-settings:
+    "BNCE" 50,
+    "INFM"50,
+    "SPAC" 12;
   text-align: center;
   margin: 0 0 15px 0;
   padding: 0;
@@ -87,15 +124,17 @@ button {
   background: var(--neutral-100);
   display: flex;
   height: 36px;
-  padding: 8px 16px;
+    
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  flex: 1 0 0;
+  font-variation-settings:
+    "BNCE" 20,
+    "INFM" 0,
+    "SPAC" 10;
   color: var(--primary-800, var(--neutral-800, #372828));
   font-family: "Shantell Sans", serif;
   font-size: 14px;
-  font-style: normal;
+
   font-weight: 638;
   line-height: normal;
   letter-spacing: -0.42px;
@@ -121,18 +160,6 @@ button.button-active,
   outline: 1px solid var(--color-primary);
 }
 
-/* Selected button type (toggle on state) */
-button.button-selected,
-.button-selected {
-  color: var(--primary-600, var(--neutral-600, #D643E3));
-  font-family: "Shantell Sans", serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 133.993%;
-  letter-spacing: -0.64px;
-}
-
 button:disabled {
   background: var(--neutral-200);
   color: var(--text-primary);
@@ -140,74 +167,79 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Screenshot viewer page */
-body.screenshot-viewer-page {
-  margin: 0;
-  padding: 16px;
-  background: var(--neutral-800);
-  font-family: var(--primary-font), system-ui, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
-body.screenshot-viewer-page .toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 10px 16px;
-  background: var(--neutral-900);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 10;
-  box-sizing: border-box;
-}
-
-body.screenshot-viewer-page .toolbar h1 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: var(--secondary-font), system-ui, sans-serif;
-}
-
-body.screenshot-viewer-page .toolbar button {
-  padding: 8px 14px;
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  font-family: var(--secondary-font), system-ui, sans-serif;
-}
-
-body.screenshot-viewer-page .toolbar button:hover {
-  opacity: 0.9;
-}
-
-body.screenshot-viewer-page .wrap {
-  margin-top: 56px;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-body.screenshot-viewer-page .wrap img {
-  max-width: 100%;
-  height: auto;
+/* Custom circle – text color button with color picker inside */
+.reforma-playground-color-circle {
+  position: relative;
   display: block;
-  border-radius: 8px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 2px solid var(--neutral-300) !important;
+  border-radius: 100px !important;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--neutral-100);
+  overflow: hidden;
 }
-
-body.screenshot-viewer-page .error {
-  color: #f87171;
-  padding: 24px;
-  text-align: center;
-  font-family: var(--primary-font), system-ui, sans-serif;
+.reforma-playground-color-circle:hover {
+  border-color: var(--primary-600) !important;
+  box-shadow: 0 2px 6px rgba(214, 67, 227, 0.3);
+  transform: scale(1.1);
+}
+.reforma-playground-color-circle:active {
+  transform: scale(0.95);
+}
+/* Color picker input – completely invisible, fills circle, receives clicks */
+.reforma-playground-color-circle .reforma-playground-color-picker-in-circle {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 100px !important;
+  cursor: pointer !important;
+  opacity: 0 !important;
+  visibility: visible !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: transparent !important;
+  transform: translate(-50%, -50%) !important;
+  box-sizing: border-box !important;
+}
+.reforma-playground-color-circle .reforma-playground-color-picker-in-circle::-webkit-color-swatch-wrapper,
+.reforma-playground-color-circle .reforma-playground-color-picker-in-circle::-webkit-color-swatch {
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 100px !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  background: transparent !important;
+}
+.reforma-playground-color-circle .reforma-playground-color-picker-in-circle::-moz-color-swatch {
+  border: none !important;
+  border-radius: 100px !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  background: transparent !important;
+}
+.reforma-playground-color-circle .reforma-playground-color-picker-in-circle::-moz-focus-inner {
+  border: none !important;
+  padding: 0 !important;
 }

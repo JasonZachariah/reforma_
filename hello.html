@@ -5,170 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reforma</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <!-- Favicon for all sizes using Reforma logo SVG -->
+  <link rel="icon" type="image/svg+xml" href="reforma_logo.svg" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .reforma-tabs-container { display: flex; flex-direction: row; border-radius: 8px 8px 0 0; border-bottom: none; }
-    .reforma-tab-btn { transition: background 0.15s, color 0.15s; border-radius: 8px 8px 0 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-    .reforma-tab-btn.active { background: var(--color-primary); color: var(--text-secondary); }
-    .reforma-tab-panel { display: none; }
-    .reforma-tab-panel.active { display: block; }
-    .reforma-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-  </style>
 </head>
 
 <body class="background-color-primary">
-  <h1 id="header">Reforma</h1>
-
-  <a
-    href="https://docs.google.com/document/create"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="mt-3 w-full inline-block text-center bg-blue-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity font-medium"
-  >
-    New Google Doc
-  </a>
-
-  <div class="reforma-tabs-container mt-4 overflow-hidden border border-neutral-200 bg-neutral-100 p-1">
-    <button type="button" class="reforma-tab-btn flex-1 py-2 px-3 text-sm font-medium active" data-tab="images" aria-selected="true">
-      Image settings
-    </button>
-    <button type="button" class="reforma-tab-btn flex-1 py-2 px-3 text-sm font-medium" data-tab="comments" aria-selected="false">
-      Comments
-    </button>
-    <button type="button" class="reforma-tab-btn flex-1 py-2 px-3 text-sm font-medium" data-tab="screenshots" aria-selected="false">
-      Screenshots
-    </button>
-    <button type="button" class="reforma-tab-btn flex-1 py-2 px-3 text-sm font-medium" data-tab="playground" aria-selected="false">
-      Playground
-    </button>
-  </div>
-
-  <div class="reforma-tab-panels mt-3">
-    <!-- Tab 1: Image settings -->
-    <div id="panel-images" class="reforma-tab-panel active" role="tabpanel">
-      <div class="mt-2">
-        <div class="flex items-center justify-between">
-          <label for="fontSize" class="text-sm font-medium text-black">Font size</label>
-          <span id="fontSizeValue" class="text-sm tabular-nums text-black">16px</span>
-        </div>
-        <input
-          id="fontSize"
-          type="range"
-          min="10"
-          max="32"
-          value="16"
-          class="mt-2 w-full accent-[#D643E3]"
-        />
-      </div>
-      <div class="mt-4">
-        <div class="flex items-center justify-between">
-          <label for="highlight" class="text-sm font-medium text-black">Highlight</label>
-          <span id="highlightValue" class="text-sm tabular-nums text-black">0%</span>
-        </div>
-        <input
-          id="highlight"
-          type="range"
-          min="0"
-          max="100"
-          value="0"
-          class="mt-2 w-full accent-[#D643E3]"
-        />
-      </div>
-      <button id="toggleImagesButton" class="mt-4 w-full bg-primary text-white py-2 px-4 rounded hover:opacity-90 transition-opacity" type="button">Images: ON</button>
-      <button id="blurImagesButton" class="mt-3 w-full bg-blue-500 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity" type="button">Blur Images: OFF</button>
-      <button id="toggleAnimationsButton" class="mt-3 w-full bg-primary text-white py-2 px-4 rounded hover:opacity-90 transition-opacity" type="button">Remove Animations: OFF</button>
-      <div class="mt-3">
-        <button id="textOnlyButton" class="w-full bg-purple-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity" type="button">Text Only View: OFF</button>
-        <label class="flex items-center mt-2 text-xs text-black cursor-pointer">
-          <input type="checkbox" id="includeImagesCheckbox" class="mr-2 accent-[#D643E3]" />
-          Include images in text view
-        </label>
-      </div>
-      <div id="colorBlindSection" class="mt-4">
-        <p class="text-sm font-medium text-black mb-2">Color Blind Friendly</p>
-        <div class="grid grid-cols-2 gap-2">
-          <button id="deuteranopiaButton" class="bg-green-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity" type="button">Deuteranopia</button>
-          <button id="tritanopiaButton" class="bg-blue-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity" type="button">Tritanopia</button>
-          <button id="protanopiaButton" class="bg-red-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity" type="button">Protanopia</button>
-          <button id="monochromacyButton" class="bg-gray-600 text-white py-2 px-3 rounded text-xs hover:opacity-90 transition-opacity" type="button">Monochromacy</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 2: Comments -->
-    <div id="panel-comments" class="reforma-tab-panel" role="tabpanel">
-      <div class="reforma-btn-grid mt-2">
-        <button id="highlightCommentFocusBtn" type="button" class="bg-amber-500 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm col-span-2">Highlight & Comment</button>
-      </div>
-      <p class="mt-1 text-xs text-black/70">Select text on the page, then use the toolbar to highlight yellow and add a comment.</p>
-      <div class="mt-3 p-3 rounded-lg border border-amber-200 bg-amber-50/80">
-        <p class="text-sm font-medium text-black mb-2">Restore code</p>
-        <p class="text-xs text-black/70 mb-2">Generate a code that saves all highlights and comments on this page. Enter the same code on this page later to restore them.</p>
-        <div class="reforma-btn-grid mb-2">
-          <button id="highlightGenerateCodeBtn" type="button" class="bg-amber-500 text-white py-2 px-3 rounded text-sm hover:opacity-90 transition-opacity">Generate code</button>
-          <button id="highlightRestoreCodeCopyBtn" type="button" class="bg-amber-600 text-white py-2 px-3 rounded text-sm hover:opacity-90 transition-opacity">Copy</button>
-        </div>
-        <textarea id="highlightRestoreCodeOutput" readonly rows="2" class="w-full text-xs font-mono p-2 border border-gray-300 rounded bg-white mb-2" placeholder="Click Generate code to create a restore code"></textarea>
-        <div class="mb-2">
-          <input id="highlightRestoreCodeInput" type="text" class="w-full text-sm p-2 border border-gray-300 rounded" placeholder="Paste code to restore highlights on this page" />
-        </div>
-        <div class="reforma-btn-grid mb-2">
-          <button id="highlightRestoreCodeRestoreBtn" type="button" class="col-span-2 bg-amber-600 text-white py-2 px-3 rounded text-sm hover:opacity-90 transition-opacity">Restore from code</button>
-        </div>
-        <p id="highlightRestoreCodeStatus" class="text-xs text-black/70 min-h-[1.25rem]"></p>
-      </div>
-    </div>
-
-    <!-- Tab 3: Screenshots -->
-    <div id="panel-screenshots" class="reforma-tab-panel" role="tabpanel">
-      <div class="reforma-btn-grid mt-2">
-        <button id="screenshotAreaButton" type="button" class="bg-teal-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm col-span-2">Select area & save screenshot</button>
-      </div>
-      <p class="mt-1 text-xs text-black/70">Draw a box on the page to capture; saved in extension.</p>
-      <div id="savedScreenshotsSection" class="mt-3">
-        <p class="text-sm font-medium text-black mb-2">Saved screenshots</p>
-        <div id="savedScreenshotsPreview" class="mb-2 hidden">
-          <p class="text-xs text-black/70 mb-1">Latest capture</p>
-          <a id="savedScreenshotsPreviewLink" href="#" class="block rounded overflow-hidden border border-gray-300 bg-gray-100">
-            <img id="savedScreenshotsPreviewImg" alt="" class="w-full h-auto max-h-40 object-contain" />
-          </a>
-        </div>
-        <div id="savedScreenshotsList" class="space-y-2 max-h-48 overflow-y-auto"></div>
-        <p id="savedScreenshotsEmpty" class="text-xs text-black/70 hidden">None yet. Use the button above to capture an area.</p>
-      </div>
-    </div>
-
-    <!-- Tab 4: Playground mode -->
-    <div id="panel-playground" class="reforma-tab-panel" role="tabpanel">
-      <p class="mt-2 text-xs text-black/70 mb-2">Enable then click to add a comment, or use area mode to drag a section.</p>
-      <label class="flex items-center mb-3 text-xs text-black cursor-pointer">
-        <input type="checkbox" id="playgroundAreaCommentCheckbox" class="mr-2 accent-[#D643E3]" />
-        Area comment (click &amp; hold, then drag to draw a section)
-      </label>
-      <label class="flex items-center mb-3 text-xs text-black cursor-pointer">
-        <input type="checkbox" id="playgroundGapModeCheckbox" class="mr-2 accent-[#D643E3]" />
-        Gap mode (highlight padding, margins, gaps; comment shows details)
-      </label>
-      <div class="reforma-btn-grid">
-        <button id="enablePlaygroundBtn" type="button" class="bg-[#D643E3] text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm font-medium">
-          Enable Playground
-        </button>
-        <button id="savePdfBtn" type="button" class="bg-neutral-700 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm font-medium">
-          Save as PDF
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-4 pt-3 border-t border-neutral-200 flex gap-2">
-    <button id="syncAllTabsButton" class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm" type="button">Sync to All Tabs</button>
-    <button id="resetButton" class="flex-1 bg-gray-500 text-white py-2 px-4 rounded hover:opacity-90 transition-opacity text-sm" type="button">Reset All</button>
-  </div>
-
+  <h1 id="header">reforma</h1>
+  <button id="enablePlaygroundBtn" type="button" class="w-full">
+    Enable Playground
+  </button>
   <script type="module" src="js/popup.js"></script>
 </body>
 

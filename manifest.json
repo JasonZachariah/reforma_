@@ -1,1 +1,24 @@
-{"name":"Reforma","description":"A tool to help you with your daily tasks","version":"1.0","manifest_version":3,"permissions":["activeTab","scripting","tabs","storage"],"host_permissions":["https://docs.google.com/*","http://*/*","https://*/*","file:///*"],"action":{"default_popup":"hello.html","default_icon":"jz_logo.png"},"content_scripts":[{"matches":["http://*/*","https://*/*","file:///*"],"js":["js/highlightComments.js"],"run_at":"document_end","all_frames":true}],"web_accessible_resources":[{"resources":["js/playground.js"],"matches":["http://*/*","https://*/*"]}],"background":{"service_worker":"js/background.js"},"web_accessible_resources":[{"resources":["jz_logo.png"],"matches":["http://*/*","https://*/*"]}]}
+{
+  "name": "Reforma",
+  "description": "Reducing handoff for web designers",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "host_permissions": ["https://docs.google.com/*", "http://*/*", "https://*/*", "file:///*"],
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "reforma_logo.png"
+  },
+  "icons": {
+    "16": "reforma_logo.png",
+    "32": "reforma_logo.png",
+    "48": "reforma_logo.png",
+    "128": "reforma_logo.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["js/playground.js", "icons/*.svg"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
+}
