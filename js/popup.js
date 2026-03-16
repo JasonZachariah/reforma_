@@ -9,8 +9,8 @@ const enablePlaygroundBtn = document.getElementById('enablePlaygroundBtn');
 
 function setPlaygroundButtonState(active) {
   if (!enablePlaygroundBtn) return;
-  enablePlaygroundBtn.textContent = active ? 'Disable Playground' : 'Enable Playground';
-  if (active) enablePlaygroundBtn.classList.add('button-active');
+  enablePlaygroundBtn.textContent = active ? 'End Session' : 'Start Reforming';
+  if (active) enablePlaygroundBtn.classList.add('button-active'); 
   else enablePlaygroundBtn.classList.remove('button-active');
 }
 
@@ -51,7 +51,7 @@ if (enablePlaygroundBtn) {
         action: 'reforma-enable-playground',
         areaComment: false,
           gapMode: true,
-        playgroundFont: 'urbanist'
+        playgroundFont: 'google_sans'
       });
       setPlaygroundButtonState(r && r.enabled);
     } catch (msgErr) {

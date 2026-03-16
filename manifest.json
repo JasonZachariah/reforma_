@@ -17,7 +17,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["js/playground.js", "icons/*.svg"],
+      "resources": ["js/playground.js"],
       "matches": ["http://*/*", "https://*/*"]
     }
   ]
