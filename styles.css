@@ -55,6 +55,8 @@ html {
   --text-primary: #181211;
   --text-secondary: #F9F6F6;
 
+  --preview-bg: var(--primary-100);
+
   --primary-font: "Google Sans", sans-serif;
   --secondary-font: "Shantell Sans", serif;
 }
